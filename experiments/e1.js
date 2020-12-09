@@ -1,5 +1,5 @@
-function test(){
+function f(){
     return 10
 }
 
-console.log(test())
+console.log(f())

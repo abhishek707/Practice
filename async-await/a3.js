@@ -4,7 +4,9 @@ async function f(){
     })
 
     let result = await p
-    console.log(result)
+    console.log('f', result)
+    return result
 }
 
-f()
+f().then(a => console.log('from then', a))
+console.log('Last console',f())

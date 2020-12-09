@@ -1,31 +1,18 @@
 const async = require('async')
 
-async function f1(){           // 1
-    return 1
-}
-f1()
+// The word “async” before a function means one simple thing: a function always returns a promise
 
-async function f2(){            // 2 
-    return Promise.resolve(2)
+async function f1(){                // 1
+    return 1                        // returns a promise
 }
-f2()
+console.log(f1())
 
-async function f3(){            // 3
-    return 1
+async function f2(){                // 2
+    return Promise.resolve(2)       // explicitly returning a promise
 }
-console.log(f3())
+console.log(f2())
 
-async function f4(){            // 4 
-    return Promise.resolve(2)
-}
-console.log(f4())
-
-function f5(){                  // 5
+async function f3(){                // 3
     return 3
 }
-f5()
-
-function f6(){                  // 6
-    return 3
-}
-console.log(f6())
+f3().then(a => console.log(a))

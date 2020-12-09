@@ -1,6 +1,6 @@
-const express = require('express')
+function f(){
+    return 6
+}
 
-app.get('/', (req,res) => {
-    req.send('abc')
-})
-
+f()
+.then(a => console.log(a))     // Cannot do this

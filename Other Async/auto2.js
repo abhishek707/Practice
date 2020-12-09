@@ -4,22 +4,31 @@ var async = require('async');
 async.auto({
 
     get_username: function(callback){
-        console.log('in get_username');
         // async code to get some data
-        callback(null, 'Zhi');
+
+        setTimeout(()=> {
+        console.log('in get_username');
+        callback(null, 'Zhi', 'More output');
+        }, 1000)
     },
     connect_to_db: function(callback){
+        //Check connection
+
+        setTimeout(()=> {
         console.log('in connect_to_db');
         var connected = true;  //set this to false here to simulate DB failure
-
-        //Check connection
         if (connected) {
             callback(null, connected);
         } else {
             callback('Error connecting to DB', null);
         }
+            }, 1000)
     },
-    check_if_user_exist: ['get_username', 'connect_to_db', function(results, callback){
+    sample_function: function(callback){
+            console.log('In sample function')
+            callback(null, 'sample output')
+    },
+    check_if_user_exist: ['get_username', 'connect_to_db', function(results, callback){ // order of Args
         console.log('in check_if_user_exist', results);
         //check if user exists in db...
         var userExists = false;
@@ -27,7 +36,6 @@ async.auto({
         if (userExists) {
             callback('User already exists in db', null);
         } else {
-            console.log('here')
             callback(null, userExists);
             // setTimeout(function() {
             // }, 1000);
@@ -38,11 +46,9 @@ async.auto({
         console.log('in sign_up', JSON.stringify(results));
 
         var username = results.get_username;
-        var username = 6
         var isDBConnected = results.connect_to_db;
         var userExists = results.check_if_user_exist;
-        // var userExists = true;
-        console.log(username, isDBConnected, userExists);
+        // console.log(username, isDBConnected, userExists);
 
         if (username && isDBConnected && !userExists) {
             callback(null, {'status': '200', 'msg':'Successfully signed up user'});
@@ -52,6 +58,7 @@ async.auto({
 
     }]
 }, function(err, results) {
+    console.log('In final callback')
     if(err)
         console.log('error = ', err);
     else
